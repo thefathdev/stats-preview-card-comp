@@ -130,13 +130,13 @@ li {
   padding: 2.25em 2em;
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 .card__heading {
   margin-bottom: 0.7em;
   color: var(--clr-neutral-0);
   font-size: 1.6em;
   line-height: 1.2;
-  text-align: center;
 }
 .card__heading > span {
   color: var(--clr-accent);
@@ -144,7 +144,6 @@ li {
 .card__body {
   margin-bottom: 2.75em;
   color: var(--clr-neutral-0-75);
-  text-align: center;
   font-size: 0.9em;
   line-height: 1.6;
 }
@@ -181,4 +180,59 @@ li {
 
 .img--desktop {
   display: none;
+}
+
+@media screen and (min-width: 36rem) {
+  .card {
+    max-width: 69.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .card__text {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 4em 6em 4em 5em;
+    text-align: start;
+  }
+  .card__heading {
+    font-size: 2.35em;
+  }
+  .card__body {
+    font-size: 1em;
+    line-height: 1.75;
+  }
+  .card__stats {
+    margin-top: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 1em;
+  }
+  .card__stat {
+    margin-right: 2em;
+  }
+  .card__stat:not(:last-child) {
+    margin-bottom: 0;
+  }
+  .card__img {
+    grid-column: 2;
+  }
+  .img--mobile {
+    display: none;
+  }
+  .img--desktop {
+    display: block;
+    height: 100%;
+    width: 100%;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .stat {
+    align-items: flex-start;
+  }
+  .stat__number {
+    font-size: 1.5em;
+  }
+  .stat__entity {
+    letter-spacing: 0.1em;
+  }
 }/*# sourceMappingURL=style.css.map */
