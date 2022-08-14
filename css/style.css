@@ -82,6 +82,8 @@ select {
   --clr-neutral-0-75: hsla(0, 0%, 100%, 0.75);
   --clr-neutral-0-60: hsla(0, 0%, 100%, 0.6);
   --fs-400: 0.938rem;
+  --anim-duration: 300ms;
+  --anim-stagger: 50ms;
 }
 
 body {
@@ -110,6 +112,11 @@ li {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  -webkit-animation: shift-up var(--anim-duration) cubic-bezier(0.5, 0, 0.5, 1) both;
+          animation: shift-up var(--anim-duration) cubic-bezier(0.5, 0, 0.5, 1) both;
+}
+.card:hover .card__heading::before {
+  transform: translateY(20%) scaleX(1);
 }
 .card__img {
   position: relative;
@@ -131,27 +138,46 @@ li {
   display: flex;
   flex-direction: column;
   text-align: center;
+  position: relative;
 }
 .card__heading {
   margin-bottom: 0.7em;
   color: var(--clr-neutral-0);
   font-size: 1.6em;
   line-height: 1.2;
+  -webkit-animation: shift-up var(--anim-duration) calc(var(--anim-duration) - var(--anim-stagger) * 2) cubic-bezier(0.5, 0, 0.5, 1) both;
+          animation: shift-up var(--anim-duration) calc(var(--anim-duration) - var(--anim-stagger) * 2) cubic-bezier(0.5, 0, 0.5, 1) both;
 }
 .card__heading > span {
   color: var(--clr-accent);
+}
+.card__heading::before {
+  content: "";
+  width: 8ch;
+  height: 0.5em;
+  background-color: var(--clr-accent);
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 4ch);
+  z-index: -1;
+  transform: translateY(20%) scaleX(0);
+  transition: transform 500ms ease-in-out;
 }
 .card__body {
   margin-bottom: 2.75em;
   color: var(--clr-neutral-0-75);
   font-size: 0.9em;
   line-height: 1.6;
+  -webkit-animation: shift-up var(--anim-duration) calc(var(--anim-duration) - var(--anim-stagger)) cubic-bezier(0.5, 0, 0.5, 1) both;
+          animation: shift-up var(--anim-duration) calc(var(--anim-duration) - var(--anim-stagger)) cubic-bezier(0.5, 0, 0.5, 1) both;
 }
 .card__stats {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  -webkit-animation: shift-up var(--anim-duration) calc(var(--anim-duration) + var(--anim-stagger) * 2) cubic-bezier(0.5, 0, 0.5, 1) both;
+          animation: shift-up var(--anim-duration) calc(var(--anim-duration) + var(--anim-stagger) * 2) cubic-bezier(0.5, 0, 0.5, 1) both;
 }
 .card__stat:not(:last-child) {
   margin-bottom: 2em;
@@ -188,6 +214,9 @@ li {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
+  .card:hover .card__heading::before {
+    transform: translateY(20%) translateX(-4px) scaleX(1);
+  }
   .card__text {
     grid-column: 1;
     grid-row: 1;
@@ -196,6 +225,10 @@ li {
   }
   .card__heading {
     font-size: 2.35em;
+  }
+  .card__heading::before {
+    left: 0;
+    transform: translateY(20%) translateX(calc(-50% - 4px)) scaleX(0);
   }
   .card__body {
     font-size: 1em;
@@ -234,5 +267,29 @@ li {
   }
   .stat__entity {
     letter-spacing: 0.1em;
+  }
+}
+@-webkit-keyframes shift-up {
+  from {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes shift-up {
+  from {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    transform: none;
   }
 }/*# sourceMappingURL=style.css.map */

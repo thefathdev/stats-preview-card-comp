@@ -30,6 +30,7 @@ Users should be able to:
 - CSS custom properties
 - Flexbox
 - CSS Grid
+- CSS Animation
 - Mobile-first workflow
 
 ## Author

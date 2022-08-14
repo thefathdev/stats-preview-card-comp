@@ -11,6 +11,9 @@
   --clr-neutral-0-60: hsla(0, 0%, 100%, 0.6);
 
   --fs-400: 0.938rem;
+
+  --anim-duration: 300ms;
+  --anim-stagger: 50ms;
 }
 
 body {
@@ -40,6 +43,12 @@ li {
   display: flex;
   flex-direction: column;
 
+  animation: shift-up var(--anim-duration) cubic-bezier(0.5, 0, 0.5, 1) both;
+
+  &:hover .card__heading::before {
+    transform: translateY(20%) scaleX(1);
+  }
+
   &__img {
     position: relative;
     z-index: 1;
@@ -62,6 +71,7 @@ li {
     display: flex;
     flex-direction: column;
     text-align: center;
+    position: relative;
   }
 
   &__heading {
@@ -70,8 +80,25 @@ li {
     font-size: 1.6em;
     line-height: 1.2;
 
+    animation: shift-up var(--anim-duration)
+      calc(var(--anim-duration) - var(--anim-stagger) * 2)
+      cubic-bezier(0.5, 0, 0.5, 1) both;
+
     > span {
       color: var(--clr-accent);
+    }
+
+    &::before {
+      content: '';
+      width: 8ch;
+      height: 0.5em;
+      background-color: var(--clr-accent);
+      position: absolute;
+      bottom: 0;
+      left: calc(50% - 4ch);
+      z-index: -1;
+      transform: translateY(20%) scaleX(0);
+      transition: transform 500ms ease-in-out;
     }
   }
 
@@ -80,6 +107,10 @@ li {
     color: var(--clr-neutral-0-75);
     font-size: 0.9em;
     line-height: 1.6;
+
+    animation: shift-up var(--anim-duration)
+      calc(var(--anim-duration) - var(--anim-stagger))
+      cubic-bezier(0.5, 0, 0.5, 1) both;
   }
 
   &__stats {
@@ -87,6 +118,10 @@ li {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    animation: shift-up var(--anim-duration)
+      calc(var(--anim-duration) + var(--anim-stagger) * 2)
+      cubic-bezier(0.5, 0, 0.5, 1) both;
   }
 
   &__stat:not(:last-child) {
@@ -129,6 +164,10 @@ li {
     display: grid;
     grid-template-columns: 1fr 1fr;
 
+    &:hover .card__heading::before {
+      transform: translateY(20%) translateX(-4px) scaleX(1);
+    }
+
     &__text {
       grid-column: 1;
       grid-row: 1;
@@ -138,6 +177,11 @@ li {
 
     &__heading {
       font-size: 2.35em;
+
+      &::before {
+        left: 0;
+        transform: translateY(20%) translateX(calc(-50% - 4px)) scaleX(0);
+      }
     }
 
     &__body {
@@ -188,5 +232,20 @@ li {
     &__entity {
       letter-spacing: 0.1em;
     }
+  }
+}
+
+@keyframes shift-up {
+  from {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  to {
+    transform: none;
   }
 }
